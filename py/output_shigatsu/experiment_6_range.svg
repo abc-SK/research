@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520">
+<rect width="100%" height="100%" fill="white"/>
+<text x="450.0" y="35" text-anchor="middle" font-size="22">Comparison of communication range</text>
+<line x1="80" y1="70" x2="80" y2="450" stroke="black"/>
+<line x1="80" y1="450" x2="860" y2="450" stroke="black"/>
+<line x1="80.0" y1="450" x2="80.0" y2="456" stroke="black"/>
+<text x="80.0" y="475" text-anchor="middle" font-size="12">0</text>
+<line x1="158.0" y1="450" x2="158.0" y2="456" stroke="black"/>
+<text x="158.0" y="475" text-anchor="middle" font-size="12">100</text>
+<line x1="236.0" y1="450" x2="236.0" y2="456" stroke="black"/>
+<text x="236.0" y="475" text-anchor="middle" font-size="12">200</text>
+<line x1="314.0" y1="450" x2="314.0" y2="456" stroke="black"/>
+<text x="314.0" y="475" text-anchor="middle" font-size="12">300</text>
+<line x1="392.0" y1="450" x2="392.0" y2="456" stroke="black"/>
+<text x="392.0" y="475" text-anchor="middle" font-size="12">400</text>
+<line x1="470.0" y1="450" x2="470.0" y2="456" stroke="black"/>
+<text x="470.0" y="475" text-anchor="middle" font-size="12">500</text>
+<line x1="548.0" y1="450" x2="548.0" y2="456" stroke="black"/>
+<text x="548.0" y="475" text-anchor="middle" font-size="12">600</text>
+<line x1="626.0" y1="450" x2="626.0" y2="456" stroke="black"/>
+<text x="626.0" y="475" text-anchor="middle" font-size="12">700</text>
+<line x1="704.0" y1="450" x2="704.0" y2="456" stroke="black"/>
+<text x="704.0" y="475" text-anchor="middle" font-size="12">800</text>
+<line x1="782.0" y1="450" x2="782.0" y2="456" stroke="black"/>
+<text x="782.0" y="475" text-anchor="middle" font-size="12">900</text>
+<line x1="860.0" y1="450" x2="860.0" y2="456" stroke="black"/>
+<text x="860.0" y="475" text-anchor="middle" font-size="12">1000</text>
+<line x1="74" y1="450.0" x2="80" y2="450.0" stroke="black"/>
+<text x="68" y="454.0" text-anchor="end" font-size="12">0</text>
+<line x1="80" y1="450.0" x2="860" y2="450.0" stroke="#dddddd"/>
+<line x1="74" y1="370.0" x2="80" y2="370.0" stroke="black"/>
+<text x="68" y="374.0" text-anchor="end" font-size="12">4</text>
+<line x1="80" y1="370.0" x2="860" y2="370.0" stroke="#dddddd"/>
+<line x1="74" y1="290.0" x2="80" y2="290.0" stroke="black"/>
+<text x="68" y="294.0" text-anchor="end" font-size="12">8</text>
+<line x1="80" y1="290.0" x2="860" y2="290.0" stroke="#dddddd"/>
+<line x1="74" y1="210.0" x2="80" y2="210.0" stroke="black"/>
+<text x="68" y="214.0" text-anchor="end" font-size="12">12</text>
+<line x1="80" y1="210.0" x2="860" y2="210.0" stroke="#dddddd"/>
+<line x1="74" y1="130.0" x2="80" y2="130.0" stroke="black"/>
+<text x="68" y="134.0" text-anchor="end" font-size="12">16</text>
+<line x1="80" y1="130.0" x2="860" y2="130.0" stroke="#dddddd"/>
+<text x="450.0" y="500" text-anchor="middle" font-size="14">time</text>
+<text x="20" y="260.0" text-anchor="middle" font-size="14" transform="rotate(-90 20 260.0)">received nodes except T0</text>
+<polyline points="80.0,450.0 158.0,410.0 236.0,130.0 314.0,90.0 392.0,70.0 470.0,70.0 548.0,70.0 626.0,70.0 704.0,70.0 782.0,70.0 860.0,70.0" fill="none" stroke="#1f77b4" stroke-width="3"/>
+<line x1="95" y1="90" x2="125" y2="90" stroke="#1f77b4" stroke-width="3"/>
+<text x="135" y="95" font-size="14">Relay allowed, range 50m</text>
+<polyline points="80.0,450.0 158.0,130.0 236.0,70.0 314.0,70.0 392.0,70.0 470.0,70.0 548.0,70.0 626.0,70.0 704.0,70.0 782.0,70.0 860.0,70.0" fill="none" stroke="#d62728" stroke-width="3"/>
+<line x1="95" y1="114" x2="125" y2="114" stroke="#d62728" stroke-width="3"/>
+<text x="135" y="119" font-size="14">Relay allowed, range 100m</text>
+<polyline points="80.0,450.0 158.0,90.0 236.0,70.0 314.0,70.0 392.0,70.0 470.0,70.0 548.0,70.0 626.0,70.0 704.0,70.0 782.0,70.0 860.0,70.0" fill="none" stroke="#2ca02c" stroke-width="3"/>
+<line x1="95" y1="138" x2="125" y2="138" stroke="#2ca02c" stroke-width="3"/>
+<text x="135" y="143" font-size="14">Relay allowed, range 150m</text>
+</svg>

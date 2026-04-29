@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520">
+<rect width="100%" height="100%" fill="white"/>
+<text x="450.0" y="35" text-anchor="middle" font-size="22">Center communication region size</text>
+<line x1="80" y1="70" x2="80" y2="450" stroke="black"/>
+<line x1="80" y1="450" x2="860" y2="450" stroke="black"/>
+<line x1="80.0" y1="450" x2="80.0" y2="456" stroke="black"/>
+<text x="80.0" y="475" text-anchor="middle" font-size="12">0</text>
+<line x1="158.0" y1="450" x2="158.0" y2="456" stroke="black"/>
+<text x="158.0" y="475" text-anchor="middle" font-size="12">100</text>
+<line x1="236.0" y1="450" x2="236.0" y2="456" stroke="black"/>
+<text x="236.0" y="475" text-anchor="middle" font-size="12">200</text>
+<line x1="314.0" y1="450" x2="314.0" y2="456" stroke="black"/>
+<text x="314.0" y="475" text-anchor="middle" font-size="12">300</text>
+<line x1="392.0" y1="450" x2="392.0" y2="456" stroke="black"/>
+<text x="392.0" y="475" text-anchor="middle" font-size="12">400</text>
+<line x1="470.0" y1="450" x2="470.0" y2="456" stroke="black"/>
+<text x="470.0" y="475" text-anchor="middle" font-size="12">500</text>
+<line x1="548.0" y1="450" x2="548.0" y2="456" stroke="black"/>
+<text x="548.0" y="475" text-anchor="middle" font-size="12">600</text>
+<line x1="626.0" y1="450" x2="626.0" y2="456" stroke="black"/>
+<text x="626.0" y="475" text-anchor="middle" font-size="12">700</text>
+<line x1="704.0" y1="450" x2="704.0" y2="456" stroke="black"/>
+<text x="704.0" y="475" text-anchor="middle" font-size="12">800</text>
+<line x1="782.0" y1="450" x2="782.0" y2="456" stroke="black"/>
+<text x="782.0" y="475" text-anchor="middle" font-size="12">900</text>
+<line x1="860.0" y1="450" x2="860.0" y2="456" stroke="black"/>
+<text x="860.0" y="475" text-anchor="middle" font-size="12">1000</text>
+<line x1="74" y1="450.0" x2="80" y2="450.0" stroke="black"/>
+<text x="68" y="454.0" text-anchor="end" font-size="12">0</text>
+<line x1="80" y1="450.0" x2="860" y2="450.0" stroke="#dddddd"/>
+<line x1="74" y1="373.2" x2="80" y2="373.2" stroke="black"/>
+<text x="68" y="377.2" text-anchor="end" font-size="12">20</text>
+<line x1="80" y1="373.2" x2="860" y2="373.2" stroke="#dddddd"/>
+<line x1="74" y1="296.5" x2="80" y2="296.5" stroke="black"/>
+<text x="68" y="300.5" text-anchor="end" font-size="12">40</text>
+<line x1="80" y1="296.5" x2="860" y2="296.5" stroke="#dddddd"/>
+<line x1="74" y1="219.7" x2="80" y2="219.7" stroke="black"/>
+<text x="68" y="223.7" text-anchor="end" font-size="12">60</text>
+<line x1="80" y1="219.7" x2="860" y2="219.7" stroke="#dddddd"/>
+<line x1="74" y1="142.9" x2="80" y2="142.9" stroke="black"/>
+<text x="68" y="146.9" text-anchor="end" font-size="12">80</text>
+<line x1="80" y1="142.9" x2="860" y2="142.9" stroke="#dddddd"/>
+<text x="450.0" y="500" text-anchor="middle" font-size="14">time</text>
+<text x="20" y="260.0" text-anchor="middle" font-size="14" transform="rotate(-90 20 260.0)">received nodes except T0</text>
+<polyline points="80.0,450.0 158.0,70.0 236.0,70.0 314.0,70.0 392.0,70.0 470.0,70.0 548.0,70.0 626.0,70.0 704.0,70.0 782.0,70.0 860.0,70.0" fill="none" stroke="#1f77b4" stroke-width="3"/>
+<line x1="95" y1="90" x2="125" y2="90" stroke="#1f77b4" stroke-width="3"/>
+<text x="135" y="95" font-size="14">Full area</text>
+<polyline points="80.0,450.0 158.0,450.0 236.0,450.0 314.0,450.0 392.0,450.0 470.0,450.0 548.0,403.9 626.0,369.4 704.0,338.7 782.0,284.9 860.0,254.2" fill="none" stroke="#d62728" stroke-width="3"/>
+<line x1="95" y1="114" x2="125" y2="114" stroke="#d62728" stroke-width="3"/>
+<text x="135" y="119" font-size="14">Center 100x100</text>
+<polyline points="80.0,450.0 158.0,450.0 236.0,292.6 314.0,185.2 392.0,139.1 470.0,116.1 548.0,96.9 626.0,85.4 704.0,73.8 782.0,73.8 860.0,70.0" fill="none" stroke="#2ca02c" stroke-width="3"/>
+<line x1="95" y1="138" x2="125" y2="138" stroke="#2ca02c" stroke-width="3"/>
+<text x="135" y="143" font-size="14">Center 200x200</text>
+<polyline points="80.0,450.0 158.0,450.0 236.0,139.1 314.0,89.2 392.0,73.8 470.0,73.8 548.0,70.0 626.0,70.0 704.0,70.0 782.0,70.0 860.0,70.0" fill="none" stroke="#9467bd" stroke-width="3"/>
+<line x1="95" y1="162" x2="125" y2="162" stroke="#9467bd" stroke-width="3"/>
+<text x="135" y="167" font-size="14">Center 400x400</text>
+<polyline points="80.0,450.0 158.0,227.4 236.0,81.5 314.0,70.0 392.0,70.0 470.0,70.0 548.0,70.0 626.0,70.0 704.0,70.0 782.0,70.0 860.0,70.0" fill="none" stroke="#ff7f0e" stroke-width="3"/>
+<line x1="95" y1="186" x2="125" y2="186" stroke="#ff7f0e" stroke-width="3"/>
+<text x="135" y="191" font-size="14">Center 600x600</text>
+<polyline points="80.0,450.0 158.0,70.0 236.0,70.0 314.0,70.0 392.0,70.0 470.0,70.0 548.0,70.0 626.0,70.0 704.0,70.0 782.0,70.0 860.0,70.0" fill="none" stroke="#17becf" stroke-width="3"/>
+<line x1="95" y1="210" x2="125" y2="210" stroke="#17becf" stroke-width="3"/>
+<text x="135" y="215" font-size="14">Center 800x800</text>
+</svg>
