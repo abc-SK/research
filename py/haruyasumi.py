@@ -2,11 +2,14 @@ import random
 
 N = 10
 TRIALS = 100
-P = 0.3
+Ps=[0.1,0.3,0.5,0.7,0.9]
 
-# --------------------------
-# ランダムグラフ生成
-# --------------------------
+
+
+for P in Ps:
+    results = []
+
+#グラフ生成
 edges = []
 
 for i in range(N):
@@ -72,10 +75,12 @@ for _ in range(TRIALS):
     _, num = greedy_coloring(order)
     results.append(num)
 
+#分散計算
+avg = sum(results)/TRIALS
+var = sum((x - avg) ** 2 for x in results) / TRIAL
+
 print("\n=== Results ===")
 print(results)
 print("min =", min(results))
 print("max =", max(results))
 print("avg =", sum(results)/TRIALS)
-
-#　各出現確率ごとの出現確率、分散を見れるようにする
