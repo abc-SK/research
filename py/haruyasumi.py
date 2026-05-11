@@ -1,86 +1,82 @@
 import random
+import matplotlib.pyplot as plt
 
 N = 10
 TRIALS = 100
-Ps=[0.1,0.3,0.5,0.7,0.9]
 
+# 比較する確率
+Ps = [0.1, 0.3, 0.5, 0.7, 0.9]
 
+avg_list = []
+var_list = []
 
 for P in Ps:
     results = []
 
-#グラフ生成
-edges = []
+    # --------------------------
+    # グラフ生成
+    # --------------------------
+    edges = []
+    for i in range(N):
+        for j in range(i+1, N):
+            if random.random() < P:
+                edges.append((i, j))
 
-for i in range(N):
-    for j in range(i+1, N):
-        if random.random() < P:
-            edges.append((i, j))
+    adj = [[0]*N for _ in range(N)]
+    for a, b in edges:
+        adj[a][b] = 1
+        adj[b][a] = 1
 
-adj = [[0]*N for _ in range(N)]
+    # --------------------------
+    # 貪欲彩色
+    # --------------------------
+    def greedy_coloring(order):
+        color = [0]*N
 
-for a, b in edges:
-    adj[a][b] = 1
-    adj[b][a] = 1
+        for v in order:
+            used = [0]*(N+1)
 
-print("Edges:")
-print(edges)
+            for u in range(N):
+                if adj[v][u] == 1 and color[u] != 0:
+                    used[color[u]] = 1
+
+            c = 1
+            while used[c] == 1:
+                c += 1
+
+            color[v] = c
+
+        return max(color)
+
+    # --------------------------
+    # シミュレーション
+    # --------------------------
+    for _ in range(TRIALS):
+        order = list(range(N))
+        random.shuffle(order)
+        results.append(greedy_coloring(order))
+
+    # --------------------------
+    # 平均と分散
+    # --------------------------
+    avg = sum(results) / TRIALS
+    var = sum((x - avg)**2 for x in results) / TRIALS
+
+    avg_list.append(avg)
+    var_list.append(var)
+
+    print(f"P = {P}")
+    print("平均:", avg)
+    print("分散:", var)
+    print("--------------------")
 
 # --------------------------
-# 貪欲彩色（色配列も返す）
+# グラフ描画
 # --------------------------
-def greedy_coloring(order):
-    color = [0]*N
+plt.plot(Ps, var_list, marker='o')
+plt.xlabel("Edge Probability P")
+plt.ylabel("Variance of Colors")
+plt.title("P vs Variance")
+plt.grid()
 
-    for v in order:
-        used = [0]*(N+1)
-
-        for u in range(N):
-            if adj[v][u] == 1 and color[u] != 0:
-                used[color[u]] = 1
-
-        c = 1
-        while used[c] == 1:
-            c += 1
-
-        color[v] = c
-
-    return color, max(color)
-
-# --------------------------
-# 1回分（手で確認用）
-# --------------------------
-order = list(range(N))
-random.shuffle(order)
-
-color, num_colors = greedy_coloring(order)
-
-print("\n=== Sample ===")
-print("Order:")
-print(order)
-
-print("\nColor (index = vertex):")
-print(color)
-
-print("\nNumber of colors:", num_colors)
-
-# --------------------------
-# 100回シミュレーション
-# --------------------------
-results = []
-
-for _ in range(TRIALS):
-    order = list(range(N))
-    random.shuffle(order)
-    _, num = greedy_coloring(order)
-    results.append(num)
-
-#分散計算
-avg = sum(results)/TRIALS
-var = sum((x - avg) ** 2 for x in results) / TRIAL
-
-print("\n=== Results ===")
-print(results)
-print("min =", min(results))
-print("max =", max(results))
-print("avg =", sum(results)/TRIALS)
+plt.show()
