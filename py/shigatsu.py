@@ -1,13 +1,3 @@
-"""
-情報通信シミュレーションの準備課題
-
-このプログラムは、1000m x 1000m の正方形エリアで端末を動かし、
-端末同士が近づいたときに情報が伝わる様子を調べます。
-
-実行すると output_shigatsu フォルダに CSV と SVG グラフを出力します。
-SVG はブラウザや Word / PowerPoint などで開ける画像形式です。
-"""
-
 import csv
 import math
 import random

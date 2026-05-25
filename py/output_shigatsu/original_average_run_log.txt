@@ -1,0 +1,135 @@
+=== non_comm_area.py ===
+Trials: 20
+
+=== Communication range 50m ===
+=== T0 only (no spread) ===
+time: 100, average received: 3.7
+time: 200, average received: 6.7
+time: 300, average received: 8.9
+time: 400, average received: 10.9
+time: 500, average received: 12.3
+time: 600, average received: 13.3
+time: 700, average received: 13.9
+time: 800, average received: 15.1
+time: 900, average received: 15.8
+time: 1000, average received: 16.2
+
+=== Received nodes also send (spread enabled) ===
+time: 100, average received: 9.1
+time: 200, average received: 17.9
+time: 300, average received: 19.9
+time: 400, average received: 20.0
+time: 500, average received: 20.0
+time: 600, average received: 20.0
+time: 700, average received: 20.0
+time: 800, average received: 20.0
+time: 900, average received: 20.0
+time: 1000, average received: 20.0
+
+=== Communication range 100m ===
+=== T0 only (no spread) ===
+time: 100, average received: 7.2
+time: 200, average received: 11.7
+time: 300, average received: 14.1
+time: 400, average received: 16.1
+time: 500, average received: 17.2
+time: 600, average received: 18.4
+time: 700, average received: 18.8
+time: 800, average received: 19.2
+time: 900, average received: 19.4
+time: 1000, average received: 19.6
+
+=== Received nodes also send (spread enabled) ===
+time: 100, average received: 16.5
+time: 200, average received: 19.9
+time: 300, average received: 20.0
+time: 400, average received: 20.0
+time: 500, average received: 20.0
+time: 600, average received: 20.0
+time: 700, average received: 20.0
+time: 800, average received: 20.0
+time: 900, average received: 20.0
+time: 1000, average received: 20.0
+
+=== Communication range 150m ===
+=== T0 only (no spread) ===
+time: 100, average received: 9.3
+time: 200, average received: 13.4
+time: 300, average received: 16.1
+time: 400, average received: 17.5
+time: 500, average received: 18.8
+time: 600, average received: 19.3
+time: 700, average received: 19.7
+time: 800, average received: 19.9
+time: 900, average received: 19.9
+time: 1000, average received: 19.9
+
+=== Received nodes also send (spread enabled) ===
+time: 100, average received: 19.4
+time: 200, average received: 19.9
+time: 300, average received: 20.0
+time: 400, average received: 20.0
+time: 500, average received: 20.0
+time: 600, average received: 20.0
+time: 700, average received: 20.0
+time: 800, average received: 20.0
+time: 900, average received: 20.0
+time: 1000, average received: 20.0
+[saved figure] output_shigatsu\original_average_non_comm_area.png
+
+=== experiment_limited_area.py ===
+============================================================
+Experiment 1: Limited communication area comparison
+============================================================
+Trials: 20
+
+=== Limited area: 100×100 (comm_range=100m) ===
+No spread:
+  Final average received: 12.9/100
+Spread enabled:
+  Final average received: 85.2/100
+
+=== Limited area: 200×200 (comm_range=100m) ===
+No spread:
+  Final average received: 46.1/100
+Spread enabled:
+  Final average received: 98.9/100
+
+=== Limited area: 300×300 (comm_range=100m) ===
+No spread:
+  Final average received: 67.6/100
+Spread enabled:
+  Final average received: 100.0/100
+
+=== Full area (no limitation) ===
+No spread:
+  Final average received: 97.7/100
+Spread enabled:
+  Final average received: 100.0/100
+[saved figure] output_shigatsu\original_average_limited_area_exp1.png
+
+============================================================
+Experiment 2: Communication area size comparison (fixed N)
+============================================================
+Trials: 20
+100×100: No spread=15.7, Spread=87.5
+150×150: No spread=26.7, Spread=97.3
+200×200: No spread=39.8, Spread=99.3
+250×250: No spread=51.6, Spread=99.9
+300×300: No spread=63.7, Spread=100.0
+[saved figure] output_shigatsu\original_average_area_size_exp2.png
+
+============================================================
+Experiment 3: Node count comparison (fixed area size)
+============================================================
+Trials: 20
+N=20: No spread=8.7/20 (43.5%), Spread=18.6/20 (92.8%)
+N=50: No spread=20.4/50 (40.9%), Spread=49.4/50 (98.8%)
+N=100: No spread=40.9/100 (40.9%), Spread=99.7/100 (99.7%)
+N=150: No spread=63.4/150 (42.3%), Spread=149.6/150 (99.7%)
+N=200: No spread=76.6/200 (38.3%), Spread=199.1/200 (99.5%)
+[saved figure] output_shigatsu\original_average_node_count_exp3.png
+
+============================================================
+All experiments completed!
+============================================================

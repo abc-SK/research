@@ -1,15 +1,28 @@
 import random
 import matplotlib.pyplot as plt
+import math
 
-N = 10
-TRIALS = 100
+N = 100
+TRIALS = 200
 
-Ps = [0.1, 0.3, 0.5, 0.7, 0.9]
+Ps = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 
-for P in Ps:
+avg_list = []
+var_list = []
+
+# 図をまとめて表示（行数と列数を動的に決定）
+num_plots = len(Ps) + 1  # ヒストグラム + P vs 分散グラフ
+cols = 3
+rows = math.ceil(num_plots / cols)
+
+plt.figure(figsize=(15, 4*rows))
+
+for idx, P in enumerate(Ps):
     results = []
 
+    # --------------------------
     # グラフ生成
+    # --------------------------
     edges = []
     for i in range(N):
         for j in range(i+1, N):
@@ -21,7 +34,9 @@ for P in Ps:
         adj[a][b] = 1
         adj[b][a] = 1
 
-    # 彩色
+    # --------------------------
+    # 貪欲彩色
+    # --------------------------
     def greedy_coloring(order):
         color = [0]*N
         for v in order:
@@ -35,20 +50,45 @@ for P in Ps:
             color[v] = c
         return max(color)
 
+    # --------------------------
     # シミュレーション
+    # --------------------------
     for _ in range(TRIALS):
         order = list(range(N))
         random.shuffle(order)
         results.append(greedy_coloring(order))
 
     # --------------------------
-    # ヒストグラム表示
+    # 平均と分散
     # --------------------------
-    plt.figure()
-    plt.hist(results, bins=range(min(results), max(results)+2), edgecolor='black')
-    plt.title(f"P = {P}")
-    plt.xlabel("Number of colors")
-    plt.ylabel("Frequency")
-    plt.grid()
+    avg = sum(results) / TRIALS
+    var = sum((x - avg)**2 for x in results) / TRIALS
 
-    plt.show()
+    avg_list.append(avg)
+    var_list.append(var)
+
+    print(f"P = {P}")
+    print("平均:", avg)
+    print("分散:", var)
+    print("--------------------")
+
+    # --------------------------
+    # ヒストグラム（分布）
+    # --------------------------
+    plt.subplot(rows, cols, idx+1)
+    plt.hist(results, bins=range(min(results), max(results)+2), edgecolor='black')
+    plt.title(f"P={P}")
+    plt.xlabel("colors")
+    plt.ylabel("count")
+
+# --------------------------
+# P vs 分散グラフ
+# --------------------------
+plt.subplot(rows, cols, len(Ps) + 1)
+plt.plot(Ps, var_list, marker='o')
+plt.title("P vs Variance")
+plt.xlabel("P")
+plt.ylabel("Variance")
+
+plt.tight_layout()
+plt.show()
