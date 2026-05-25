@@ -93,7 +93,8 @@ def run_repeated_simulation(simulation_func, n, area, trials=DEFAULT_TRIALS,
 # --------------------------
 # シミュレーション関数
 # --------------------------
-def simulate_communication(nodes, targets, n, area, spread=False, communication_range=100):
+def simulate_communication(nodes, targets, n, area, spread=False, communication_range=100,
+                           record_interval=100):
     """
     spread=False: T0のみ送信
     spread=True: 受信したノードも送信
@@ -145,9 +146,9 @@ def simulate_communication(nodes, targets, n, area, spread=False, communication_
                             new_received[j] = True
             received = new_received
 
-        # 100ステップごとに記録
+        # record_intervalステップごとに記録
         current_time = t + 1
-        if current_time % 100 == 0:
+        if current_time % record_interval == 0:
             times.append(current_time)
             counts.append(sum(received))
     
@@ -170,7 +171,8 @@ def is_in_limited_area(node, center_x, center_y, area_size):
 # 限定領域通信のシミュレーション関数
 # --------------------------
 def simulate_communication_limited_area(nodes, targets, n, area, spread=False, 
-                                       communication_range=100, area_size=None):
+                                       communication_range=100, area_size=None,
+                                       record_interval=100):
     """
     中央の限定通信領域でシミュレーション
     area_size: 正方形領域の半辺長（Noneなら全体領域）
@@ -238,9 +240,9 @@ def simulate_communication_limited_area(nodes, targets, n, area, spread=False,
                             new_received[j] = True
             received = new_received
 
-        # 100ステップごとに記録
+        # record_intervalステップごとに記録
         current_time = t + 1
-        if current_time % 100 == 0:
+        if current_time % record_interval == 0:
             times.append(current_time)
             counts.append(sum(received))
     

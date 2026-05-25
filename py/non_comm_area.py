@@ -16,6 +16,8 @@ N = 20
 AREA = 1000 #1000*1000
 COMMUNICATION_RANGES = [50, 100, 150]
 TRIALS = DEFAULT_TRIALS
+DETAIL_END_TIME = 300
+DETAIL_RECORD_INTERVAL = 10
 
 # --------------------------
 # シミュレーション関数
@@ -30,12 +32,14 @@ for r in COMMUNICATION_RANGES:
     # T0のみ
     results[(r, False)] = run_repeated_simulation(
         simulate_communication, N, AREA, trials=TRIALS,
-        seed_start=1000 + r, spread=False, communication_range=r
+        seed_start=1000 + r, spread=False, communication_range=r,
+        record_interval=DETAIL_RECORD_INTERVAL
     )
     # 拡散あり
     results[(r, True)] = run_repeated_simulation(
         simulate_communication, N, AREA, trials=TRIALS,
-        seed_start=1000 + r, spread=True, communication_range=r
+        seed_start=1000 + r, spread=True, communication_range=r,
+        record_interval=DETAIL_RECORD_INTERVAL
     )
 
 # 結果表示
@@ -54,23 +58,53 @@ for r in COMMUNICATION_RANGES: #r=50,100,150
         print(f"time: {t}, average received: {c:.1f}")
 
 # --------------------------
-# グラフ（比較）
+# グラフ（序盤は細かく、その後は荒く表示）
 # --------------------------
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(12, 6))
 
 for r in COMMUNICATION_RANGES:
     times_no_spread, counts_no_spread = results[(r, False)]
     times_spread, counts_spread = results[(r, True)]
 
-    plt.plot(times_no_spread, counts_no_spread, marker="o", label=f"{r}m : T0 only", linewidth=2)
-    plt.plot(times_spread, counts_spread, marker="s", linestyle="--", label=f"{r}m : Spread", linewidth=2)
+    plot_no_spread = [
+        (t, c) for t, c in zip(times_no_spread, counts_no_spread)
+        if t <= DETAIL_END_TIME or t % 100 == 0
+    ]
+    plot_spread = [
+        (t, c) for t, c in zip(times_spread, counts_spread)
+        if t <= DETAIL_END_TIME or t % 100 == 0
+    ]
+
+    plt.plot(
+        [t for t, _ in plot_no_spread],
+        [c for _, c in plot_no_spread],
+        marker="o",
+        label=f"{r}m : T0 only",
+        linewidth=2
+    )
+    plt.plot(
+        [t for t, _ in plot_spread],
+        [c for _, c in plot_spread],
+        marker="s",
+        linestyle="--",
+        label=f"{r}m : Spread",
+        linewidth=2
+    )
+
+xticks = list(range(DETAIL_RECORD_INTERVAL, DETAIL_END_TIME + 1, DETAIL_RECORD_INTERVAL))
+xticks += list(range(DETAIL_END_TIME + 100, 1001, 100))
 
 plt.xlabel("Time", fontsize=12)
 plt.ylabel("Average Received Nodes", fontsize=12)
+plt.xticks(xticks, rotation=45)
 plt.yticks(range(0, N + 1))
+plt.xlim(0, 1000)
 plt.ylim(0, N + 1)
 plt.grid(True, alpha=0.3)
-plt.legend(fontsize=11)
-plt.title(f"Communication mode comparison (average of {TRIALS} trials)", fontsize=14)
+plt.legend(fontsize=10)
+plt.title(
+    f"Communication mode comparison: every {DETAIL_RECORD_INTERVAL} steps until {DETAIL_END_TIME}, then every 100 steps",
+    fontsize=14
+)
 plt.tight_layout()
 plt.show()
