@@ -7,12 +7,13 @@ TRIALS = 200
 
 Ps = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 
+#それぞれのPに対して平均と分散を格納するリスト
 avg_list = []
 var_list = []
 
-# 図をまとめて表示（行数と列数を動的に決定）
+# 図をまとめて表示（行数と列数を動的に決定）4×3のグラフ
 num_plots = len(Ps) + 1  # ヒストグラム + P vs 分散グラフ
-cols = 3
+cols = 3 #横に3列で表示
 rows = math.ceil(num_plots / cols)
 
 plt.figure(figsize=(15, 4*rows))

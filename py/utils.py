@@ -71,7 +71,7 @@ def run_repeated_simulation(simulation_func, n, area, trials=DEFAULT_TRIALS,
     all_counts = []
     times = None
 
-    for trial in range(trials):
+    for trial in range(trials):#20回繰り返す
         placement_seed = seed_start + trial
         movement_seed = seed_start + 100000 + trial
 
@@ -123,15 +123,11 @@ def simulate_communication(nodes, targets, n, area, spread=False, communication_
             else:
                 nodes[i] = [tx, ty]
 
-                # 新しいターゲット（最小距離制約）
-                while True:
-                    new_target = [
-                        random.uniform(0, area),
-                        random.uniform(0, area)
-                    ]
-                    if is_far_enough(new_target, targets, MINIMUM_DISTANCE):
-                        targets[i] = new_target
-                        break
+                # 新しいターゲット（完全ランダム）
+                targets[i] = [
+                    random.uniform(0, area),
+                    random.uniform(0, area)
+                ]
 
         # 通信
         if spread == False:
@@ -207,15 +203,11 @@ def simulate_communication_limited_area(nodes, targets, n, area, spread=False,
             else:
                 nodes[i] = [tx, ty]
 
-                # 新しいターゲット（最小距離制約）
-                while True:
-                    new_target = [
-                        random.uniform(0, area),
-                        random.uniform(0, area)
-                    ]
-                    if is_far_enough(new_target, targets, MINIMUM_DISTANCE):
-                        targets[i] = new_target
-                        break
+                # 新しいターゲット（完全ランダム）
+                targets[i] = [
+                    random.uniform(0, area),
+                    random.uniform(0, area)
+                ]
 
         # 通信（限定領域内のみ）
         if spread == False:

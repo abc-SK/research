@@ -1,9 +1,7 @@
 import matplotlib.pyplot as plt
 from utils import (
-    DEFAULT_TRIALS, simulate_communication_limited_area, run_repeated_simulation
+    generate_points, simulate_communication_limited_area, MINIMUM_DISTANCE
 )
-
-TRIALS = DEFAULT_TRIALS
 
 # --------------------------
 # 実験1: 限定領域 vs 全領域（N固定）
@@ -11,7 +9,6 @@ TRIALS = DEFAULT_TRIALS
 print("=" * 60)
 print("Experiment 1: Limited communication area comparison")
 print("=" * 60)
-print(f"Trials: {TRIALS}")
 
 N = 100
 AREA = 1000
@@ -23,20 +20,21 @@ COMMUNICATION_RANGE = 100
 # etc.
 area_sizes = [50, 100, 150]  # corresponding to 100×100, 200×200, 300×300
 
-# 各領域サイズでシミュレーション（複数回平均）
+nodes = generate_points(N, AREA, MINIMUM_DISTANCE)
+targets = generate_points(N, AREA, MINIMUM_DISTANCE)
+
+# 各領域サイズでT0のみと拡散型でシミュレーション
 exp1_results = {}
 for area_size in area_sizes:
     area_label = f"{area_size*2}×{area_size*2}"
     
-    times_no_spread, counts_no_spread = run_repeated_simulation(
-        simulate_communication_limited_area, N, AREA, trials=TRIALS,
-        seed_start=10000 + area_size, spread=False, 
+    times_no_spread, counts_no_spread = simulate_communication_limited_area(
+        nodes, targets, N, AREA, spread=False, 
         communication_range=COMMUNICATION_RANGE, area_size=area_size
     )
     
-    times_spread, counts_spread = run_repeated_simulation(
-        simulate_communication_limited_area, N, AREA, trials=TRIALS,
-        seed_start=10000 + area_size, spread=True, 
+    times_spread, counts_spread = simulate_communication_limited_area(
+        nodes, targets, N, AREA, spread=True, 
         communication_range=COMMUNICATION_RANGE, area_size=area_size
     )
     
@@ -47,30 +45,28 @@ for area_size in area_sizes:
     
     print(f"\n=== Limited area: {area_label} (comm_range={COMMUNICATION_RANGE}m) ===")
     print("No spread:")
-    print(f"  Final average received: {counts_no_spread[-1]:.1f}/{N}")
+    print(f"  Final received: {counts_no_spread[-1]}/{N}")
     print("Spread enabled:")
-    print(f"  Final average received: {counts_spread[-1]:.1f}/{N}")
+    print(f"  Final received: {counts_spread[-1]}/{N}")
 
 # 全領域シミュレーション（area_size=None）
-times_full_no_spread, counts_full_no_spread = run_repeated_simulation(
-    simulate_communication_limited_area, N, AREA, trials=TRIALS,
-    seed_start=19999, spread=False, 
+times_full_no_spread, counts_full_no_spread = simulate_communication_limited_area(
+    nodes, targets, N, AREA, spread=False, 
     communication_range=COMMUNICATION_RANGE, area_size=None
 )
 
-times_full_spread, counts_full_spread = run_repeated_simulation(
-    simulate_communication_limited_area, N, AREA, trials=TRIALS,
-    seed_start=19999, spread=True, 
+times_full_spread, counts_full_spread = simulate_communication_limited_area(
+    nodes, targets, N, AREA, spread=True, 
     communication_range=COMMUNICATION_RANGE, area_size=None
 )
 
 print(f"\n=== Full area (no limitation) ===")
 print("No spread:")
-print(f"  Final average received: {counts_full_no_spread[-1]:.1f}/{N}")
+print(f"  Final received: {counts_full_no_spread[-1]}/{N}")
 print("Spread enabled:")
-print(f"  Final average received: {counts_full_spread[-1]:.1f}/{N}")
+print(f"  Final received: {counts_full_spread[-1]}/{N}")
 
-# 実験1のグラフ
+# 実験1のグラフ左がT0のみ、右が拡散型の比較
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 # No spread の比較
@@ -82,7 +78,7 @@ for area_size in area_sizes:
 ax.plot(times_full_no_spread, counts_full_no_spread, marker="s", 
         label="Full area", linewidth=2, linestyle="--", color="black")
 ax.set_xlabel("Time", fontsize=11)
-ax.set_ylabel("Average Received Nodes", fontsize=11)
+ax.set_ylabel("Received Nodes", fontsize=11)
 ax.set_yticks(range(0, N + 1, 10))
 ax.set_ylim(0, N + 1)
 ax.grid(True, alpha=0.3)
@@ -98,14 +94,14 @@ for area_size in area_sizes:
 ax.plot(times_full_spread, counts_full_spread, marker="s", 
         label="Full area", linewidth=2, linestyle="--", color="black")
 ax.set_xlabel("Time", fontsize=11)
-ax.set_ylabel("Average Received Nodes", fontsize=11)
+ax.set_ylabel("Received Nodes", fontsize=11)
 ax.set_yticks(range(0, N + 1, 10))
 ax.set_ylim(0, N + 1)
 ax.grid(True, alpha=0.3)
 ax.legend(fontsize=10)
 ax.set_title("Received nodes also send (Spread)", fontsize=12)
 
-plt.suptitle(f"Experiment 1: Limited area vs Full area (N={N}, comm_range={COMMUNICATION_RANGE}m, trials={TRIALS})", 
+plt.suptitle(f"Experiment 1: Limited area vs Full area (N={N}, comm_range={COMMUNICATION_RANGE}m)", 
              fontsize=13, y=1.02)
 plt.tight_layout()
 plt.show()
@@ -116,7 +112,6 @@ plt.show()
 print("\n" + "=" * 60)
 print("Experiment 2: Communication area size comparison (fixed N)")
 print("=" * 60)
-print(f"Trials: {TRIALS}")
 
 N = 100
 AREA = 1000
@@ -125,20 +120,21 @@ COMMUNICATION_RANGE = 100
 # 領域サイズ（半辺長）
 area_sizes_exp2 = [50, 75, 100, 125, 150]
 
+nodes2 = generate_points(N, AREA, MINIMUM_DISTANCE)
+targets2 = generate_points(N, AREA, MINIMUM_DISTANCE)
+
 exp2_results = {}
 final_counts_no_spread = []
 final_counts_spread = []
 
 for area_size in area_sizes_exp2:
-    times_no_spread, counts_no_spread = run_repeated_simulation(
-        simulate_communication_limited_area, N, AREA, trials=TRIALS,
-        seed_start=20000 + area_size, spread=False, 
+    times_no_spread, counts_no_spread = simulate_communication_limited_area(
+        nodes2, targets2, N, AREA, spread=False, 
         communication_range=COMMUNICATION_RANGE, area_size=area_size
     )
     
-    times_spread, counts_spread = run_repeated_simulation(
-        simulate_communication_limited_area, N, AREA, trials=TRIALS,
-        seed_start=20000 + area_size, spread=True, 
+    times_spread, counts_spread = simulate_communication_limited_area(
+        nodes2, targets2, N, AREA, spread=True, 
         communication_range=COMMUNICATION_RANGE, area_size=area_size
     )
     
@@ -151,7 +147,7 @@ for area_size in area_sizes_exp2:
     final_counts_spread.append(counts_spread[-1])
     
     area_label = f"{area_size*2}×{area_size*2}"
-    print(f"{area_label}: No spread={counts_no_spread[-1]:.1f}, Spread={counts_spread[-1]:.1f}")
+    print(f"{area_label}: No spread={counts_no_spread[-1]}, Spread={counts_spread[-1]}")
 
 # 実験2のグラフ
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -163,7 +159,7 @@ for area_size in area_sizes_exp2:
     area_label = f"{area_size*2}×{area_size*2}"
     ax.plot(times, counts, marker="o", label=area_label, linewidth=2)
 ax.set_xlabel("Time", fontsize=11)
-ax.set_ylabel("Average Received Nodes", fontsize=11)
+ax.set_ylabel("Received Nodes", fontsize=11)
 ax.set_yticks(range(0, N + 1, 10))
 ax.set_ylim(0, N + 1)
 ax.grid(True, alpha=0.3)
@@ -179,14 +175,14 @@ ax.plot(x_pos, final_counts_spread, marker="s", label="Spread", linewidth=2, mar
 ax.set_xticks(x_pos)
 ax.set_xticklabels(area_labels)
 ax.set_xlabel("Limited area size (width/height in m)", fontsize=11)
-ax.set_ylabel("Final average received nodes", fontsize=11)
+ax.set_ylabel("Final received nodes", fontsize=11)
 ax.set_yticks(range(0, N + 1, 10))
 ax.set_ylim(0, N + 1)
 ax.grid(True, alpha=0.3, axis='y')
 ax.legend(fontsize=10)
 ax.set_title("Final received count vs area size", fontsize=12)
 
-plt.suptitle(f"Experiment 2: Area size comparison (N={N}, comm_range={COMMUNICATION_RANGE}m, trials={TRIALS})", 
+plt.suptitle(f"Experiment 2: Area size comparison (N={N}, comm_range={COMMUNICATION_RANGE}m)", 
              fontsize=13, y=1.02)
 plt.tight_layout()
 plt.show()
@@ -197,7 +193,6 @@ plt.show()
 print("\n" + "=" * 60)
 print("Experiment 3: Node count comparison (fixed area size)")
 print("=" * 60)
-print(f"Trials: {TRIALS}")
 
 AREA = 1000
 COMMUNICATION_RANGE = 100
@@ -212,15 +207,16 @@ received_rates_no_spread = []
 received_rates_spread = []
 
 for n in node_counts:
-    times_no_spread, counts_no_spread = run_repeated_simulation(
-        simulate_communication_limited_area, n, AREA, trials=TRIALS,
-        seed_start=30000 + n, spread=False, 
+    nodes3 = generate_points(n, AREA, MINIMUM_DISTANCE)
+    targets3 = generate_points(n, AREA, MINIMUM_DISTANCE)
+    
+    times_no_spread, counts_no_spread = simulate_communication_limited_area(
+        nodes3, targets3, n, AREA, spread=False, 
         communication_range=COMMUNICATION_RANGE, area_size=AREA_SIZE
     )
     
-    times_spread, counts_spread = run_repeated_simulation(
-        simulate_communication_limited_area, n, AREA, trials=TRIALS,
-        seed_start=30000 + n, spread=True, 
+    times_spread, counts_spread = simulate_communication_limited_area(
+        nodes3, targets3, n, AREA, spread=True, 
         communication_range=COMMUNICATION_RANGE, area_size=AREA_SIZE
     )
     
@@ -237,8 +233,8 @@ for n in node_counts:
     received_rates_no_spread.append(final_no_spread / n * 100)
     received_rates_spread.append(final_spread / n * 100)
     
-    print(f"N={n}: No spread={final_no_spread:.1f}/{n} ({final_no_spread/n*100:.1f}%), "
-          f"Spread={final_spread:.1f}/{n} ({final_spread/n*100:.1f}%)")
+    print(f"N={n}: No spread={final_no_spread}/{n} ({final_no_spread/n*100:.1f}%), "
+          f"Spread={final_spread}/{n} ({final_spread/n*100:.1f}%)")
 
 # 実験3のグラフ
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -250,7 +246,7 @@ ax.plot(node_counts, final_counts_no_spread_exp3, marker="o", label="No spread",
 ax.plot(node_counts, final_counts_spread_exp3, marker="s", label="Spread", 
         linewidth=2, markersize=8)
 ax.set_xlabel("Number of nodes (N)", fontsize=11)
-ax.set_ylabel("Final average received nodes", fontsize=11)
+ax.set_ylabel("Final received nodes", fontsize=11)
 ax.grid(True, alpha=0.3)
 ax.legend(fontsize=10)
 ax.set_title("Absolute received count", fontsize=12)
@@ -268,7 +264,7 @@ ax.grid(True, alpha=0.3)
 ax.legend(fontsize=10)
 ax.set_title("Received rate comparison", fontsize=12)
 
-plt.suptitle(f"Experiment 3: Node count comparison (area_size={AREA_SIZE*2}×{AREA_SIZE*2}m, comm_range={COMMUNICATION_RANGE}m, trials={TRIALS})", 
+plt.suptitle(f"Experiment 3: Node count comparison (area_size={AREA_SIZE*2}×{AREA_SIZE*2}m, comm_range={COMMUNICATION_RANGE}m)", 
              fontsize=13, y=1.02)
 plt.tight_layout()
 plt.show()

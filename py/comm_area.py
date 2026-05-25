@@ -11,6 +11,18 @@ N = 20
 AREA = 1000
 TIME = 1000
 MINIMUM_DISTANCE = 60
+COMM_AREA_SIZE = 200  # 中央の通信可能領域の一辺
+
+#中心にいるか判定
+def in_comm_area(node, comm_area_size):
+    x, y = node
+
+    left = (AREA - comm_area_size) / 2
+    right = (AREA + comm_area_size) / 2
+    bottom = (AREA - comm_area_size) / 2
+    top = (AREA + comm_area_size) / 2
+
+    return left <= x <= right and bottom <= y <= top
 
 
 # 比較する通信半径
